@@ -6,7 +6,7 @@
 # Zoho Catalyst serverless projects.
 #
 # Usage: Run from the root of a Catalyst project
-#   ~/Documents/LBR/Catalyst/catalyst-dev-setup/setup.sh
+#   /path/to/catalyst-dev-setup/setup.sh
 #
 # What it does:
 #   1. Validates you're in a Catalyst project

@@ -5,14 +5,19 @@ A reusable setup script that installs git hooks, Jest testing, and npm scripts f
 ## Quick Start
 
 ```bash
+# Clone this repo anywhere you like (one-time setup)
+git clone https://github.com/hector1799/catalyst-dev-setup.git ~/catalyst-dev-setup
+
 # Navigate to any Catalyst project
-cd ~/Documents/LBR/Catalyst/<project-name>
+cd /path/to/your/catalyst-project
 
 # Run the setup script
-~/Documents/LBR/Catalyst/catalyst-dev-setup/setup.sh
+~/catalyst-dev-setup/setup.sh
 ```
 
 That's it! The script handles everything automatically.
+
+**Note:** You can clone `catalyst-dev-setup` to any location. The script uses relative paths and will work regardless of where it's installed or where your Catalyst projects live.
 
 ## What Gets Installed
 
