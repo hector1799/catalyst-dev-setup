@@ -1,0 +1,35 @@
+#!/bin/bash
+# Pre-commit hook: Run tests before allowing commit
+# Installed by catalyst-dev-setup
+
+echo "🧪 Running tests before commit..."
+echo ""
+
+# Track if any tests fail
+FAILED=0
+
+# Find all function directories with package.json
+for dir in functions/*/; do
+  if [ -f "$dir/package.json" ]; then
+    FUNC_NAME=$(basename "$dir")
+    echo "Testing: $FUNC_NAME"
+
+    # Run npm test and capture exit code
+    (cd "$dir" && npm test --silent)
+    if [ $? -ne 0 ]; then
+      echo "❌ Tests failed in $FUNC_NAME"
+      FAILED=1
+    else
+      echo "✅ $FUNC_NAME passed"
+    fi
+    echo ""
+  fi
+done
+
+if [ $FAILED -ne 0 ]; then
+  echo "❌ Commit blocked: Tests failed. Fix the issues and try again."
+  exit 1
+fi
+
+echo "✅ All tests passed. Proceeding with commit."
+exit 0

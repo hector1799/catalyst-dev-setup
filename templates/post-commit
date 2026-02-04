@@ -1,0 +1,19 @@
+#!/bin/bash
+# Post-commit hook: Deploy to Zoho Catalyst after successful commit
+# Installed by catalyst-dev-setup
+
+echo ""
+echo "🚀 Deploying to Zoho Catalyst (Development)..."
+echo ""
+
+# Run catalyst deploy
+catalyst deploy
+
+if [ $? -eq 0 ]; then
+  echo ""
+  echo "✅ Deployment to Development complete!"
+else
+  echo ""
+  echo "⚠️  Deployment failed. Check the errors above."
+  echo "    You can manually deploy with: catalyst deploy"
+fi
