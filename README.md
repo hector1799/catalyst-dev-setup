@@ -36,6 +36,14 @@ That's it! The script handles everything automatically.
 | **pre-commit** | Before each commit | Runs `npm test` in all functions. Blocks commit if tests fail. |
 | **post-commit** | After each commit | Runs `catalyst deploy` to deploy to Development. |
 
+### Project Documentation
+
+| Item | Description |
+|------|-------------|
+| **CLAUDE.md** | Template for AI assistant context (created if not exists) |
+
+The `CLAUDE.md` file helps Claude Code understand your project. It's automatically read at the start of every conversation, providing context about architecture, conventions, and workflows. Edit the generated template to add project-specific details.
+
 ## NPM Scripts
 
 After setup, each function has these scripts:
@@ -165,6 +173,7 @@ catalyst-dev-setup/
 ├── templates/
 │   ├── pre-commit        # Git hook template
 │   ├── post-commit       # Git hook template
-│   └── basic.test.js     # Placeholder test template
+│   ├── basic.test.js     # Placeholder test template
+│   └── CLAUDE.md         # Project documentation template
 └── README.md             # This file
 ```

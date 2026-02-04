@@ -267,6 +267,45 @@ print_success "pre-commit hook installed"
 print_success "post-commit hook installed"
 
 # ============================================================================
+# Create CLAUDE.md (if not exists)
+# ============================================================================
+
+print_header "Project Documentation"
+
+if [ -f "CLAUDE.md" ]; then
+  print_info "CLAUDE.md already exists, skipping"
+else
+  # Get project name from directory
+  PROJECT_NAME=$(basename "$(pwd)")
+
+  # Get first function name for template
+  FIRST_FUNC=""
+  for dir in functions/*/; do
+    if [ -d "$dir" ]; then
+      FIRST_FUNC=$(basename "$dir")
+      break
+    fi
+  done
+
+  # Copy template and replace placeholders
+  cp "$TEMPLATES_DIR/CLAUDE.md" "CLAUDE.md"
+
+  # Replace placeholders with actual values
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS sed requires empty string for -i
+    sed -i '' "s/PROJECT_NAME/$PROJECT_NAME/g" "CLAUDE.md"
+    sed -i '' "s/FUNCTION_NAME/${FIRST_FUNC:-YourFunction}/g" "CLAUDE.md"
+  else
+    # Linux sed
+    sed -i "s/PROJECT_NAME/$PROJECT_NAME/g" "CLAUDE.md"
+    sed -i "s/FUNCTION_NAME/${FIRST_FUNC:-YourFunction}/g" "CLAUDE.md"
+  fi
+
+  print_success "CLAUDE.md template created"
+  print_info "Edit CLAUDE.md to add project-specific details"
+fi
+
+# ============================================================================
 # Summary
 # ============================================================================
 
@@ -277,11 +316,13 @@ echo "  • Jest testing framework in each function"
 echo "  • npm scripts: test, test:watch, test:coverage, deploy"
 echo "  • Git pre-commit hook (runs tests before each commit)"
 echo "  • Git post-commit hook (deploys to Catalyst after commit)"
+echo "  • CLAUDE.md template (if not already present)"
 echo ""
 echo "Next steps:"
-echo "  1. Replace placeholder tests with real tests"
-echo "  2. Run tests manually: cd functions/<name> && npm test"
-echo "  3. Commit changes - tests run automatically!"
+echo "  1. Edit CLAUDE.md with project-specific details"
+echo "  2. Replace placeholder tests with real tests"
+echo "  3. Run tests manually: cd functions/<name> && npm test"
+echo "  4. Commit changes - tests run automatically!"
 echo ""
 echo "Deployment workflow:"
 echo "  • Development: Automatic on every commit (post-commit hook)"
